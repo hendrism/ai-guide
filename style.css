@@ -5,18 +5,18 @@
 }
 
 :root {
-    --md-sys-color-primary: #6750A4;
+    --md-sys-color-primary: #0d9488;
     --md-sys-color-on-primary: #FFFFFF;
-    --md-sys-color-primary-dark: #5B3E9E;
-    --md-sys-color-secondary: #625B71;
+    --md-sys-color-primary-dark: #0f766e;
+    --md-sys-color-secondary: #2563eb;
     --md-sys-color-on-secondary: #FFFFFF;
-    --md-sys-color-secondary-dark: #514667;
+    --md-sys-color-secondary-dark: #1e40af;
     --md-sys-color-background: #FFFBFE;
     --md-sys-color-on-background: #1C1B1F;
     --md-sys-color-surface: #FFFBFE;
     --md-sys-color-on-surface: #1C1B1F;
-    --md-sys-color-primary-container: #EADDFF;
-    --md-sys-color-on-primary-container: #21005D;
+    --md-sys-color-primary-container: #ccfbf1;
+    --md-sys-color-on-primary-container: #115e59;
     --md-sys-color-outline: #79747E;
     --md-sys-color-success-container: #E9F5EE;
     --md-sys-color-success: #22C55E;
