@@ -1,0 +1,22 @@
+name: Issue notification
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.example.com
+          server_port: 587
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "New issue: ${{ github.event.issue.title }}"
+          to: ${{ secrets.ISSUE_ALERT_EMAIL }}
+          from: GitHub Actions <noreply@example.com>
+          body: |
+            A new issue has been opened: ${{ github.event.issue.html_url }}

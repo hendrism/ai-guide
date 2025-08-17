@@ -1,0 +1,17 @@
+{
+  "name": "ai-guide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "npm run lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "eslint": "^9.33.0"
+  }
+}
