@@ -12,7 +12,6 @@ let challenge = localStorage.getItem('challenge') || '';
 function init() {
 currentDay = parseInt(localStorage.getItem('currentDay')) || 0;
 updateDisplay();
-setupEventListeners();
 registerServiceWorker();
 }
 
@@ -157,21 +156,6 @@ if (userGoal && currentDay === 0) {
 }
 }
 
-// Setup event listeners
-function setupEventListeners() {
-const issueBtn = document.getElementById('issue-btn');
-const ideasBtn = document.getElementById('ideas-btn');
-const closeModal = document.getElementById('close-issue-modal');
-const submitBtn = document.getElementById('submit-issue');
-
-issueBtn.addEventListener('click', openIssueModal);
-ideasBtn.addEventListener('click', () => {
-    document.getElementById('issue-title').value = 'More ideas request';
-    openIssueModal();
-});
-closeModal.addEventListener('click', closeIssueModal);
-submitBtn.addEventListener('click', submitIssue);
-}
 
 // Setup event listeners for content (radio buttons, etc.)
 function setupContentEventListeners() {
@@ -251,47 +235,6 @@ updateDisplay();
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', init);
 
-// Issue modal
-function openIssueModal() {
-document.getElementById('issue-modal').classList.remove('hidden');
-}
-
-function closeIssueModal() {
-document.getElementById('issue-modal').classList.add('hidden');
-}
-
-function submitIssue() {
-const title = document.getElementById('issue-title').value;
-const body = document.getElementById('issue-body').value;
-const tokenField = document.getElementById('issue-token');
-const token = tokenField.value || localStorage.getItem('githubToken');
-
-if (!token) {
-    alert('GitHub token required.');
-    return;
-}
-
-localStorage.setItem('githubToken', token);
-
-fetch('https://api.github.com/repos/hendrism/ai-guide/issues', {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/vnd.github+json',
-        'Authorization': `Bearer ${token}`
-    },
-    body: JSON.stringify({ title, body })
-}).then(res => {
-    if (res.ok) {
-        alert('Issue submitted!');
-        closeIssueModal();
-        document.getElementById('issue-title').value = '';
-        document.getElementById('issue-body').value = '';
-        tokenField.value = '';
-    } else {
-        alert('Submission failed.');
-    }
-}).catch(() => alert('Submission failed.'));
-}
 
 // Service worker
 function registerServiceWorker() {
