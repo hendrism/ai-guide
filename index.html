@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="style.css">
     </head>
 <body>
+    <div id="update-banner" class="update-banner">
+        <span>New version available</span>
+        <button id="reload-btn" class="btn btn-primary">Update</button>
+    </div>
     <div class="container">
         <!-- Header -->
         <header class="header">
@@ -91,7 +95,17 @@
     </div>
 </div>
 
-    <footer style="text-align:center; padding:1rem;">Have an idea or found a bug? <a href="https://github.com/hendrism/ai-guide/issues">Open an issue</a>.</footer>
+    <footer style="text-align:center; padding:1rem;">Have an idea or found a bug? <button id="issue-btn" class="link-button">Open an issue</button>. <button id="ideas-btn" class="link-button">Need more ideas?</button></footer>
+    <div id="issue-modal" class="modal hidden">
+        <div class="modal-content">
+            <span id="close-issue-modal" class="close">&times;</span>
+            <h3>Submit an Issue</h3>
+            <input type="text" id="issue-title" placeholder="Title" />
+            <textarea id="issue-body" placeholder="Describe your issue"></textarea>
+            <input type="password" id="issue-token" placeholder="GitHub Token" />
+            <button id="submit-issue" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
     <script src="journey-data.js"></script>
     <script src="main.js"></script>
 </body>

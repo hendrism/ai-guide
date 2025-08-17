@@ -8,6 +8,12 @@ module.exports = [
       globals: {
         document: "readonly",
         localStorage: "readonly",
+        alert: "readonly",
+        fetch: "readonly",
+        navigator: "readonly",
+        window: "readonly",
+        self: "readonly",
+        caches: "readonly",
       }
     },
     rules: {
