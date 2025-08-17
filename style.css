@@ -307,7 +307,62 @@ background-color: #f9fafb;
 }
 
 .goal-option input[type="radio"] {
-margin: 0;
+    margin: 0;
+}
+
+.modal {
+position: fixed;
+z-index: 1000;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.5);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.modal-content {
+background: white;
+padding: 1rem;
+border-radius: 8px;
+width: 90%;
+max-width: 400px;
+}
+
+.modal .close {
+float: right;
+font-size: 1.25rem;
+cursor: pointer;
+}
+
+.hidden {
+display: none;
+}
+
+.link-button {
+background: none;
+border: none;
+color: #2563eb;
+text-decoration: underline;
+cursor: pointer;
+font: inherit;
+padding: 0;
+}
+
+.update-banner {
+position: fixed;
+bottom: 0;
+left: 0;
+right: 0;
+background-color: #2563eb;
+color: white;
+display: none;
+justify-content: space-between;
+align-items: center;
+padding: 0.5rem 1rem;
+z-index: 999;
 }
 
 .quick-reference {

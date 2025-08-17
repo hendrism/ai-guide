@@ -13,6 +13,7 @@ function init() {
 currentDay = parseInt(localStorage.getItem('currentDay')) || 0;
 updateDisplay();
 setupEventListeners();
+registerServiceWorker();
 }
 
 // Update the entire display
@@ -158,7 +159,18 @@ if (userGoal && currentDay === 0) {
 
 // Setup event listeners
 function setupEventListeners() {
-// This will be called on init
+const issueBtn = document.getElementById('issue-btn');
+const ideasBtn = document.getElementById('ideas-btn');
+const closeModal = document.getElementById('close-issue-modal');
+const submitBtn = document.getElementById('submit-issue');
+
+issueBtn.addEventListener('click', openIssueModal);
+ideasBtn.addEventListener('click', () => {
+    document.getElementById('issue-title').value = 'More ideas request';
+    openIssueModal();
+});
+closeModal.addEventListener('click', closeIssueModal);
+submitBtn.addEventListener('click', submitIssue);
 }
 
 // Setup event listeners for content (radio buttons, etc.)
@@ -238,3 +250,80 @@ updateDisplay();
 
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', init);
+
+// Issue modal
+function openIssueModal() {
+document.getElementById('issue-modal').classList.remove('hidden');
+}
+
+function closeIssueModal() {
+document.getElementById('issue-modal').classList.add('hidden');
+}
+
+function submitIssue() {
+const title = document.getElementById('issue-title').value;
+const body = document.getElementById('issue-body').value;
+const tokenField = document.getElementById('issue-token');
+const token = tokenField.value || localStorage.getItem('githubToken');
+
+if (!token) {
+    alert('GitHub token required.');
+    return;
+}
+
+localStorage.setItem('githubToken', token);
+
+fetch('https://api.github.com/repos/hendrism/ai-guide/issues', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/vnd.github+json',
+        'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({ title, body })
+}).then(res => {
+    if (res.ok) {
+        alert('Issue submitted!');
+        closeIssueModal();
+        document.getElementById('issue-title').value = '';
+        document.getElementById('issue-body').value = '';
+        tokenField.value = '';
+    } else {
+        alert('Submission failed.');
+    }
+}).catch(() => alert('Submission failed.'));
+}
+
+// Service worker
+function registerServiceWorker() {
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js').then(reg => {
+        if (reg.waiting) {
+            showUpdateBanner(reg);
+        }
+
+        reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    showUpdateBanner(reg);
+                }
+            });
+        });
+    });
+
+    let refreshing;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        window.location.reload();
+        refreshing = true;
+    });
+}
+}
+
+function showUpdateBanner(reg) {
+const banner = document.getElementById('update-banner');
+banner.style.display = 'flex';
+document.getElementById('reload-btn').onclick = () => {
+    reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+};
+}
