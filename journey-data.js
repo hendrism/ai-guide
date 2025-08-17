@@ -60,7 +60,7 @@ const journeyData = [
         <div style="margin-bottom: 1.5rem;">
             <h3 style="font-weight: 600; margin-bottom: 0.75rem;">Step 2: Copy and paste this exact message:</h3>
             <div class="prompt-box">
-                "I'm new to AI. Can you explain in simple terms what you are and what you can help me with? Please give me 3 specific examples of how someone like me could use you."
+                "I'm new to AI, and my goal is {{userGoal}}. Can you explain in simple terms what you are and how you can help? Please give me 3 specific examples related to this goal."
             </div>
         </div>
 
@@ -133,9 +133,9 @@ const journeyData = [
     description: "Try 4 different types of tasks to see AI's strengths",
     tasks: [
         "Research Assistant: Ask about solar panels",
-        "Creative Brainstorming: Ask for hobby suggestions", 
+        "Creative Brainstorming: Ask for hobby suggestions",
         "Problem-Solving: Ask about computer troubleshooting",
-        "Learning Tutor: Ask about compound interest"
+        "Learning Tutor: Ask about {{userGoal}}"
     ],
     content: `
         <div class="content-grid" style="margin-bottom: 1.5rem;">
@@ -163,7 +163,7 @@ const journeyData = [
             <div class="content-card blue">
                 <h3 style="font-weight: 600; color: #1e40af; margin-bottom: 0.5rem;">Task 4: Learning Tutor</h3>
                 <div style="background: white; padding: 0.5rem; border-radius: 4px; font-size: 0.75rem; font-family: monospace;">
-                    "Explain how compound interest works. First explain it simply, then give me a concrete example with actual numbers."
+                    "I'm trying to learn more about {{userGoal}}. Can you break it down for a beginner and suggest one actionable first step?"
                 </div>
             </div>
         </div>

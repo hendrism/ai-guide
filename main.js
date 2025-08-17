@@ -57,10 +57,10 @@ journeyData.forEach((day, index) => {
 function updateDayContent() {
 const day = journeyData[currentDay];
 
-document.getElementById('day-title').textContent = 
-    (currentDay === 0 ? "Before You Start: " : `Day ${currentDay}: `) + day.title;
+document.getElementById('day-title').textContent =
+    (currentDay === 0 ? "Before You Start: " : `Day ${currentDay}: `) + applyUserSelections(day.title);
 document.getElementById('day-duration').textContent = `⏱️ ${day.duration}`;
-document.getElementById('day-description').textContent = day.description;
+document.getElementById('day-description').textContent = applyUserSelections(day.description);
 
 // Show/hide tasks section
 const tasksSection = document.getElementById('tasks-section');
@@ -72,7 +72,7 @@ if (day.tasks) {
 }
 
 // Update content
-document.getElementById('content-section').innerHTML = day.content;
+document.getElementById('content-section').innerHTML = applyUserSelections(day.content);
 
 // Re-attach event listeners for radio buttons
 setupContentEventListeners();
@@ -100,7 +100,7 @@ day.tasks.forEach((task, index) => {
     
     const text = document.createElement('span');
     text.className = 'task-text';
-    text.textContent = task;
+    text.textContent = applyUserSelections(task);
     if (isTaskCompleted(currentDay, index)) {
         text.classList.add('completed');
     }
@@ -154,6 +154,13 @@ if (userGoal && currentDay === 0) {
 } else {
     goalStatus.style.display = 'none';
 }
+
+}
+
+// Replace placeholders in content with user selections
+function applyUserSelections(str) {
+    if (!str) return '';
+    return str.replace(/{{userGoal}}/g, userGoal || 'your goal');
 }
 
 
