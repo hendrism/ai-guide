@@ -38,7 +38,7 @@ dotsContainer.innerHTML = '';
 journeyData.forEach((day, index) => {
     const dot = document.createElement('button');
     dot.className = 'day-dot';
-    dot.textContent = index;
+    dot.textContent = index === 0 ? 'Intro' : `Day ${index}`;
     dot.onclick = () => goToDay(index);
     
     if (index === currentDay) {
@@ -58,7 +58,7 @@ function updateDayContent() {
 const day = journeyData[currentDay];
 
 document.getElementById('day-title').textContent =
-    (currentDay === 0 ? "Before You Start: " : `Day ${currentDay}: `) + applyUserSelections(day.title);
+    (currentDay === 0 ? "Prologue: " : `Day ${currentDay}: `) + applyUserSelections(day.title);
 document.getElementById('day-duration').textContent = `⏱️ ${day.duration}`;
 document.getElementById('day-description').textContent = applyUserSelections(day.description);
 
